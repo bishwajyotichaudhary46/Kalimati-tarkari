@@ -2,7 +2,7 @@ pandas
 matplotlib
 seaborn
 flask
-numpy==1.19.5
+numpy==1.24.4
 scikit-learn
 PyYAML
 notebook
@@ -11,6 +11,7 @@ python-box==6.0.2
 ensure==1.0.2
 selenium
 statsmodels
-tensorflow==2.4.1
+tensorflow==2.17.0
+pymongo
 
 -e .
