@@ -13,5 +13,8 @@ selenium
 statsmodels
 tensorflow==2.17.0
 pymongo
+from_root
+dill
+python-dotenv
 
 -e .
