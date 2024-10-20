@@ -2,49 +2,33 @@ artifacts_root: artifacts
 
 data_ingestion:
   root_dir: artifacts/data_ingestion
-  source_URL: https://github.com/bishwajyotichaudhary46/alldata/raw/main/salesdaily.zip
-  local_data_file: artifacts/data_ingestion/data.zip
-  unzip_dir: artifacts/data_ingestion
+  local_data_file: artifacts/data_ingestion/data.csv
 
 data_validation:
   root_dir: artifacts/data_validation
-  unzip_data_dir: artifacts/data_ingestion/salesDaily.csv
+  unzip_data_dir: artifacts/data_ingestion/data.csv
   STATUS_FILE: artifacts/data_validation/status.txt
-  
+
 data_transformation:
   root_dir: artifacts/data_transformation
-  data_path: artifacts/data_ingestion/salesDaily.csv
-  sales_data: artifacts/database_data/sales.csv
+  data_path: artifacts/data_ingestion/data.csv
+  final_data: artifacts/data_transformation/final_data.csv
 
 data_spliting:
   root_dir: artifacts/data_spliting
-  data_path: artifacts/data_transformation/salesDaily.csv
+  data_path: artifacts/data_transformation/final_data.csv
 
 model_trainer:
   root_dir: artifacts/model_trainer
   train_data_path: artifacts/data_spliting/train.csv
   test_data_path: artifacts/data_spliting/test.csv
   scaler: scaler.joblib
-  M01AB: artifacts/model_trainer/M01AB
-  M01AE: artifacts/model_trainer/M01AE
-  N02BA: artifacts/model_trainer/N02BA
-  N02BE: artifacts/model_trainer/N02BE
-  N05B: artifacts/model_trainer/N05B
-  N05C: artifacts/model_trainer/N05C
-  R03: artifacts/model_trainer/R03
-  R06: artifacts/model_trainer/R06
-  
+  Potato: artifacts/model_trainer/Potato
 
 model_evaluation:
   root_dir: artifacts/model_evaluation
   train_data_path: artifacts/data_spliting/train.csv
   test_data_path: artifacts/data_spliting/test.csv
-  M01AB: artifacts/model_trainer/M01AB
-  M01AE: artifacts/model_trainer/M01AE
-  N02BA: artifacts/model_trainer/N02BA
-  N02BE: artifacts/model_trainer/N02BE
-  N05B: artifacts/model_trainer/N05B
-  N05C: artifacts/model_trainer/N05C
-  R03: artifacts/model_trainer/R03
-  R06: artifacts/model_trainer/R06
+  Potato: artifacts/model_trainer/artifacts/model_trainer/Potato
   scaler: artifacts/model_triner/scaler.joblib
+  

@@ -1,4 +1,4 @@
-from kalimati_tarkari.configuration.mongo_db_connection import MongoDBClient
+from kalimati_tarkari.config.mongo_db_connection import MongoDBClient
 from kalimati_tarkari.constants import DATABASE_NAME
 from kalimati_tarkari.exception import KalimatiException
 import pandas as pd
@@ -8,7 +8,7 @@ import numpy as np
 
 
 
-class USvisaData:
+class KalimatiData:
     """
     This class help to export entire mongo db record as pandas dataframe
     """
@@ -32,7 +32,6 @@ class USvisaData:
                 collection = self.mongo_client.database[collection_name]
             else:
                 collection = self.mongo_client[database_name][collection_name]
-
             df = pd.DataFrame(list(collection.find()))
             if "_id" in df.columns.to_list():
                 df = df.drop(columns=["_id"], axis=1)

@@ -1,6 +1,6 @@
 import logging
 import os
-
+import sys
 from from_root import from_root
 from datetime import datetime
 
@@ -17,4 +17,5 @@ logging.basicConfig(
     filename=logs_path,
     format="[ %(asctime)s ] %(name)s - %(levelname)s - %(message)s",
     level=logging.DEBUG,
+   
 )

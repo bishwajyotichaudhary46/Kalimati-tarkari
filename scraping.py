@@ -11,7 +11,7 @@ import numpy as np
 driver = webdriver.Chrome()
 
 # Define the start date
-start_date = datetime.now()
+start_date = datetime(2024, 9, 27)
 
 # Get the current date
 current_date = datetime.now()

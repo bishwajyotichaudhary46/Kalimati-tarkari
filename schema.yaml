@@ -1,0 +1,8 @@
+COLUMNS:
+  Average: float64
+  Date: object
+
+
+trainer_column:
+  Average: Average
+  
