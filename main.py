@@ -6,7 +6,7 @@ from kalimati_tarkari.pipline.stage_03_data_transformation_pipeline import DataT
 from kalimati_tarkari.pipline.stage_04_dataspliting_pipeline import DataSplitingTrainingPipeline
 from kalimati_tarkari.pipline.stage_05_training_pipeline import ModelTrainingPipeline
 from kalimati_tarkari.pipline.stage_06_model_evaluation_pipeline import ModelEvaluationPipeline
-""""
+
 
 STAGE_NAME = "Data Ingestion stage"
 try:
@@ -56,7 +56,7 @@ try:
    logging.info(f">>>>>> stage {STAGE_NAME} sucessfully completed <<<<<<\n\nx==========x")
 except Exception as e:
         raise KalimatiException(e)
-"""
+
 STAGE_NAME = "Model Evaluation stage"
 try:
    logging.info(f">>>>>> stage {STAGE_NAME} started <<<<<<") 

@@ -33,7 +33,11 @@ class ForecastingPipeline:
 
         return test_data_scaled, train_data_scaled, scaler
     
-    def forecasts(self, X_test, n_steps=60, forecast_length=30):
+    def forecasts(self, n_steps=60, forecast_length=30):
+        test_data_scaled, train_data_scaled , scaler = self.normalize_data()
+        # Prepare test data
+        X_test, _ = self.test_splitting(train_data_scaled, test_data_scaled)
+        
         # Get the last window from X_test to start forecasting
         x_input = X_test[-1].reshape(1, -1)
 
@@ -53,7 +57,6 @@ class ForecastingPipeline:
                 # Adjust the input to only keep the last 'n_steps' elements
                 x_input = np.array(temp_input[-n_steps:])
                 x_input = x_input.reshape(1, n_steps, 1)
-                print('lst_out',lst_output)
                 x_input = tf.constant(x_input, dtype=tf.float32)
                 # Predict the next value using the model
 
@@ -73,8 +76,11 @@ class ForecastingPipeline:
                 lst_output.append(y_hat.numpy()[0][0])
             i += 1
 
-        
-        return lst_output
+        forecasted_output = np.array(lst_output).reshape(-1, 1)
+        original_scale_forecast = scaler.inverse_transform(forecasted_output).flatten()
+
+
+        return original_scale_forecast
 
     
     def test_splitting(self, train, test):

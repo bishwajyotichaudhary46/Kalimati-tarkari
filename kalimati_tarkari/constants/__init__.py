@@ -7,18 +7,18 @@ from urllib.parse import quote_plus
 
 
 load_dotenv()
-username = os.getenv('username')
+username = 'bishwajyotichaudhary46'
 password = os.getenv('password')
 
 # Escape the username and password according to RFC 3986
-escaped_username = quote_plus(username)
+#escaped_username = quote_plus(username)
 escaped_password = quote_plus(password)
 
 DATABASE_NAME = os.getenv('DB_NAME')
 
 COLLECTION_NAME = os.getenv('COLLECTION_NAME')
 
-MONGODB_URL_KEY =  f"mongodb+srv://{escaped_username}:{escaped_password}@cluster0.tofa7.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"
+MONGODB_URL_KEY =  f"mongodb+srv://{username}:{escaped_password}@cluster0.tofa7.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"
 
 
 PIPELINE_NAME: str = "kalimati"

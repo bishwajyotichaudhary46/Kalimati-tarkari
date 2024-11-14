@@ -4,34 +4,41 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.common.exceptions import TimeoutException, NoSuchElementException, ElementClickInterceptedException
 from datetime import datetime, timedelta
+import time
 import pandas as pd
 import numpy as np
 
 # Initialize the WebDriver (e.g., ChromeDriver)
-driver = webdriver.Chrome()
+
 
 # Define the start date
-start_date = datetime(2024, 9, 27)
-
+#start_date = datetime(2024, 11, 10)
+start_date = datetime.now()
 # Get the current date
 current_date = datetime.now()
-
+#current_date = datetime(2024, 10, 21)
 # Generate the range of dates
 date_range = []
 current = start_date
-while current <= current_date:
-    date_range.append(current.strftime('%m/%d/%Y'))
-    current += timedelta(days=1)
+df = pd.read_csv('notebook/final_data.csv')
+last_date = df.tail(1).to_dict(orient='records')
+if last_date[0]['Date'] == current.strftime('%m/%d/%Y'):
+   print("Already Scrapped!!!! ")
+else: 
+    while current <= current_date:
+        date_range.append(current.strftime('%m/%d/%Y'))
+        current += timedelta(days=1)
 
 # Initialize an empty DataFrame
-df = pd.read_csv('notebook/final_data.csv')
-
+driver = webdriver.Chrome()
 # Open the search page
 driver.get('https://kalimatimarket.gov.np/price')
-
+i = 0
 # Loop through each date and fetch data
-for date in date_range:
+print(date_range)
+while i < len(date_range):
     try:
+        date = date_range[i]
         # Find the search input field and enter the search term
         date_input = WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.ID, 'datePricing')))
         date_input.clear()  # Clear any existing input
@@ -59,9 +66,21 @@ for date in date_range:
                 minimum = cells[2].text if len(cells) > 2 else np.nan
                 maximum = cells[3].text if len(cells) > 3 else np.nan
                 average = cells[4].text if len(cells) > 4 else np.nan
-
-                new_row = pd.DataFrame({'Date': [date], 'Commodity': [commodity], 'Unit': [unit], 'Minimum': [minimum], 'Maximum': [maximum], 'Average': [average]})
-                df = pd.concat([df, new_row], ignore_index=True)
+               
+                if commodity == 'टेबलमा डाटा उपलब्ध भएन':
+                    print(f'In Date: {date} data not found') 
+                    print(f'Waiting for data .....')
+                    time.sleep(600)
+                    
+                    
+                else:
+                    
+                    new_row = pd.DataFrame({'Date': [date], 'Commodity': [commodity], 'Unit': [unit], 'Minimum': [minimum], 'Maximum': [maximum], 'Average': [average]})
+                    df = pd.concat([df, new_row], ignore_index=True)
+        
+        if commodity != 'टेबलमा डाटा उपलब्ध भएन':
+            i += 1
+        
 
     except TimeoutException:
         print(f"Timeout occurred for date: {date}")

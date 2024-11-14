@@ -4,5 +4,5 @@ hybrid:
   activation: relu
   loss: mse
   optimizer: adam
-  epoch: 50
+  epoch: 10
   batch_size: 100
